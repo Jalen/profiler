@@ -29,8 +29,8 @@ void Profiler::ReportResult(string title, string filePath)
 	fstream outfile;
 	outfile.open(filePath.c_str(), ios_base::app);
 	
-	outfile << "\n------------------" << endl;
-	outfile << title << endl;
+	outfile << "<PerformanceCounters title =" << title << ">" << endl;
+
 	::OutputDebugStringA("\n------------------");
 	::OutputDebugStringA(title.c_str());
 
@@ -38,11 +38,9 @@ void Profiler::ReportResult(string title, string filePath)
 	{
 		it->second->Report(outfile);
 	}
-	::OutputDebugString("------------------\n");
+	::OutputDebugStringA("------------------\n");
 
-	outfile << "\n------------------" << endl << endl;
-
-	outfile << __FILE__ << __LINE__;
+	outfile << "</PerformanceCounters>" << endl;
 
 	outfile.close();
 }
@@ -114,10 +112,17 @@ void StopWatch::Report( fstream& out, bool bReset /*= false*/ )
 	char sValue[512];
 	sprintf_s(sValue, 512, "%s: %d Hit Count: %d", mReportName.c_str(),  mTicks, mHitCount);
 
-	::OutputDebugString(sValue);
+	::OutputDebugStringA(sValue);
 
-	out << sValue << "(" << mFile << "[" << mLine << "])"<< std::endl;
-	
+	out << "	<Name>" << mReportName << "</Name>" << endl;
+	out << "	<Ticks>" << mTicks << "</Ticks>" << endl;
+	out << "	<HitCount>" << mHitCount << "</HitCount>" << endl;
+	if(!mFile.empty())
+	{
+		out << "	<File>" << mFile << "</File>" << endl;
+		out << "	<Line>" << mLine << "</Line>" << endl;
+	}
+
 	if(bReset)
 	{
 		mTicks = 0;

@@ -62,6 +62,9 @@ namespace DevTools
 
 		static int AcquireWatch(System::String^ name)
 		{
+			//string currentFile=new System.Diagnostics.StackTrace(true).GetFrame(0).GetFileName(); 
+			//int currentLine = new System.Diagnostics.StackTrace(true).GetFrame(0).GetFileLineNumber();  
+
 			CString strName = name;
 
 			return Profiler::AcquireWatch(strName.GetBuffer());

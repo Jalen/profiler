@@ -1,0 +1,16 @@
+<PerformanceCounters>
+  <Performancecounter>
+	<Name>StopWatch::Start</Name>
+	<Ticks>1000</Ticks>>
+	<HitCount>20</HitCount>>
+	<File>Profiler.cpp</File>
+	<Line>104</Line>>	
+  </Performancecounter>
+  <Performancecounter>
+	<Name>StopWatch::Start</Name>
+	<Ticks>1000</Ticks>>
+	<HitCount>20</HitCount>>
+	<File>Profiler.cpp</File>
+	<Line>104</Line>>	
+  </Performancecounter>
+</PerformanceCounters>

@@ -1,0 +1,16 @@
+Debug
+Release
+*.opensdf
+*.sdf
+*.suo
+*.user
+*.lib
+*.ipch
+*.ncb
+*.tlb
+*.dll
+*.pdb
+*.trx
+*.docstates
+*.cache
+*.exe
