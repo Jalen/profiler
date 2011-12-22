@@ -7,11 +7,11 @@ namespace TestCases
 {
     class Program
     {
-        static int id = ProfilerMgd.ProfilerMgd.AcquireWatch("main");
+        static int id = DevTools.ProfilerMgd.AcquireWatch("main");
 
         static void Main(string[] args)
         {
-            using(new ProfilerMgd.StopWatchMgd(id))
+            using (new DevTools.StopWatchMgd(id))
             {
                 for (int i = 0; i < 1000000; i++)
                 {
@@ -20,7 +20,7 @@ namespace TestCases
                 }
             }
 
-            ProfilerMgd.ProfilerMgd.ReportResult("test", @"c:\test.txt");
+            DevTools.ProfilerMgd.ReportResult("test", @"c:\test.txt");
         }
     }
 }
