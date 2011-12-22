@@ -15,6 +15,19 @@ int Profiler::AcquireWatch( string name, string file /*= L""*/, int line)
 	return count;
 }
 
+int Profiler::QueryOrAcquireWatch( string name, string file /*= ""*/, int line/*= 0*/ )
+{
+	for(map<int, StopWatch*>::iterator it = StopWatches.begin(); it != StopWatches.end(); ++it)
+	{
+		if(it->second->isEqual(name, file, line))
+		{
+			return it->first;
+		}
+	}
+
+	return AcquireWatch(name, file, line);
+}
+
 StopWatch* Profiler::QueryWatch( int count )
 {
 	map<int, StopWatch*>::iterator it = StopWatches.find(count);
@@ -29,6 +42,7 @@ void Profiler::ReportResult(string title, string filePath)
 	fstream outfile;
 	outfile.open(filePath.c_str(), ios_base::app);
 	
+	outfile << endl << endl;
 	outfile << "<PerformanceCounters title =" << title << ">" << endl;
 
 	::OutputDebugStringA("\n------------------");
@@ -59,6 +73,17 @@ StopWatchHelper::StopWatchHelper( int id )
 		sw->Start();
 
 	mID = id;
+
+	mStopped = false;
+}
+
+StopWatchHelper::StopWatchHelper( string name, string file /*= ""*/, int line/*= 0*/ )
+{
+	mID = Profiler::QueryOrAcquireWatch(name, file, line);
+
+	StopWatch* sw = Profiler::QueryWatch(mID);
+	if(sw != NULL)
+		sw->Start();
 
 	mStopped = false;
 }
@@ -114,6 +139,7 @@ void StopWatch::Report( fstream& out, bool bReset /*= false*/ )
 
 	::OutputDebugStringA(sValue);
 
+	out << "<PerformanceCounter>" << endl;
 	out << "	<Name>" << mReportName << "</Name>" << endl;
 	out << "	<Ticks>" << mTicks << "</Ticks>" << endl;
 	out << "	<HitCount>" << mHitCount << "</HitCount>" << endl;
@@ -122,10 +148,22 @@ void StopWatch::Report( fstream& out, bool bReset /*= false*/ )
 		out << "	<File>" << mFile << "</File>" << endl;
 		out << "	<Line>" << mLine << "</Line>" << endl;
 	}
+	out << "</PerformanceCounter>" << endl;
 
 	if(bReset)
 	{
 		mTicks = 0;
 		mHitCount = 0;
 	}
+}
+
+bool StopWatch::isEqual(string reportName, string file, int line)
+{
+	if(mReportName != reportName)
+		return false;
+
+	if(mLine != line)
+		return false;
+	
+	return mFile == file;
 }

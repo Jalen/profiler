@@ -34,12 +34,14 @@ public:
 	void Start();
 
 	void Report(fstream& out, bool bReset = false);
+
+	bool isEqual(string reportName, string file, int line);
 private:
 	string mReportName;
 	string mFile;
-	int mLine;
-	DWORD  mStartTick;
-	DWORD mTicks;
+	int   mLine;
+	ULONG mStartTick;
+	ULONG mTicks;
 	bool  mIsStopped;
 	int   mHitCount;
 };
@@ -48,11 +50,11 @@ class EXPORT_PROFILER Profiler
 {
 public:
 	static int AcquireWatch(string name, string file = "", int line= 0);
+	static int QueryOrAcquireWatch(string name, string file = "", int line= 0);
 
 	static StopWatch* QueryWatch(int count);
 
 	static void ReportResult(string title, string filePath);
-private:
 };
 
 #define DECLARE_WATCH(id) static int id = Profiler::AcquireWatch(__FUNCTION__, __FILE__, __LINE__);
@@ -61,6 +63,7 @@ class EXPORT_PROFILER StopWatchHelper
 {
 public:
 	StopWatchHelper(int id);
+	StopWatchHelper(string name, string file = "", int line= 0);
 
 	~StopWatchHelper();
 
@@ -70,3 +73,6 @@ private:
 	int mID;
 	bool mStopped;
 };
+
+
+#define PROFILER_HERE(id) StopWatchHelper stopWatchHelper_##id(__FUNCTION__, __FILE__, __LINE__);
