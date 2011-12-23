@@ -75,4 +75,8 @@ private:
 };
 
 
-#define PROFILER_HERE(id) StopWatchHelper stopWatchHelper_##id(__FUNCTION__, __FILE__, __LINE__);
+// Indirect macro expansion
+// See http://stackoverflow.com/questions/1597007/creating-c-macro-with-and-line-token-concatenation-with-positioning-macr for more information
+#define PROFILER_IT(x, y) x ## y
+#define PROFILER_IT2(x, y) PROFILER_IT(x, y)
+#define PROFILER_HERE StopWatchHelper PROFILER_IT2(stopWatchHelper, __LINE__)(__FUNCTION__, __FILE__, __LINE__)

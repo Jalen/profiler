@@ -40,7 +40,7 @@ void TestPerformanceOfMap()
 
 void TestPerformanceOfMap1()
 {
-	PROFILER_HERE(0);
+	PROFILER_HERE;
 
 	std::map<string, string> data;
 
@@ -51,7 +51,7 @@ void TestPerformanceOfMap1()
 		data[ss.str()] == ss.str();
 	}
 
-	PROFILER_HERE(1);
+	PROFILER_HERE;
 
 	for (int i = 0; i < 1000; i++)
 	{

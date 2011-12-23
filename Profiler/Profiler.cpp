@@ -134,6 +134,9 @@ void StopWatch::Start()
 
 void StopWatch::Report( fstream& out, bool bReset /*= false*/ )
 {
+	if(!mIsStopped)
+		Stop();
+
 	char sValue[512];
 	sprintf_s(sValue, 512, "%s: %d Hit Count: %d", mReportName.c_str(),  mTicks, mHitCount);
 

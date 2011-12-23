@@ -7,11 +7,9 @@ namespace TestCases
 {
     class Program
     {
-        static int id = DevTools.ProfilerMgd.AcquireWatch("main");
-
         static void Main(string[] args)
         {
-            using (new DevTools.StopWatchMgd(id))
+            using (new DevTools.StopWatchMgd("main"))
             {
                 for (int i = 0; i < 1000000; i++)
                 {

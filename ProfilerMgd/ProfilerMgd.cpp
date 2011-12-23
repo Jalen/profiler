@@ -22,20 +22,22 @@ namespace DevTools
 			Profiler::ReportResult(ConvertToString(title), ConvertToString(filePath));
 		}
 
-		static int AcquireWatch(System::String^ name)
+		static int QueryOrAcquireWatch(System::String^ name)
 		{
 			//string currentFile=new System.Diagnostics.StackTrace(true).GetFrame(0).GetFileName(); 
 			//int currentLine = new System.Diagnostics.StackTrace(true).GetFrame(0).GetFileLineNumber();
 
-			return Profiler::AcquireWatch(ConvertToString(name));
+			return Profiler::QueryOrAcquireWatch(ConvertToString(name));
 		}
 	};
 
 	public ref struct StopWatchMgd
 	{
 	public:
-		StopWatchMgd(int id)
+		StopWatchMgd(System::String^ name)
 		{
+			int id = ProfilerMgd::QueryOrAcquireWatch(name);
+
 			StopWatch* sw = Profiler::QueryWatch(id);
 			if(sw != NULL)
 				sw->Start();
