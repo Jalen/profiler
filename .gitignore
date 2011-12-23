@@ -8,9 +8,8 @@ Release
 *.ipch
 *.ncb
 *.tlb
-*.dll
 *.pdb
 *.trx
 *.docstates
 *.cache
-*.exe
+

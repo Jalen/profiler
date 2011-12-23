@@ -9,13 +9,19 @@ namespace TestCases
     {
         static void Main(string[] args)
         {
-            using (new DevTools.StopWatchMgd("main"))
+            var stopWatch = new DevTools.StopWatchMgd("main");
+
+            try
             {
                 for (int i = 0; i < 1000000; i++)
                 {
                     int j;
                     j = 1000;
                 }
+            }
+            finally
+            {
+                stopWatch.Stop();
             }
 
             DevTools.ProfilerMgd.ReportResult("test", @"c:\test.txt");
