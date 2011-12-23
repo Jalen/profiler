@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Profiler", "Profiler\Profiler.vcxproj", "{9CDDBCFF-30D6-480B-8041-A5B3F83E4C40}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ProfilerMgd", "ProfilerMgd\ProfilerMgd.vcxproj", "{570EC8F7-AE36-4178-8FAB-BAB5E0227B08}"
+	ProjectSection(ProjectDependencies) = postProject
+		{9CDDBCFF-30D6-480B-8041-A5B3F83E4C40} = {9CDDBCFF-30D6-480B-8041-A5B3F83E4C40}
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{143249D4-8A83-43D7-9D47-1CDA19FF222D}"
 EndProject

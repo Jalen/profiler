@@ -9,22 +9,19 @@ namespace TestCases
     {
         static void Main(string[] args)
         {
-            var stopWatch = new DevTools.StopWatchMgd("main");
+            //var stopWatch = new DevTools.StopWatchMgd("main");
 
-            try
+            //DevTools.ProfilerMgd.Start("main");
+            
+            for (int i = 0; i < 1000000; i++)
             {
-                for (int i = 0; i < 1000000; i++)
-                {
-                    int j;
-                    j = 1000;
-                }
+                int j;
+                j = 1000;
             }
-            finally
-            {
-                stopWatch.Stop();
-            }
+       
+            //DevTools.ProfilerMgd.Stop("main");
 
-            DevTools.ProfilerMgd.ReportResult("test", @"c:\test.txt");
+            //DevTools.ProfilerMgd.ReportResult("test", @"c:\test.txt");
         }
     }
 }

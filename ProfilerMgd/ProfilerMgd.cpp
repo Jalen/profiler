@@ -24,10 +24,25 @@ namespace DevTools
 
 		static int QueryOrAcquireWatch(System::String^ name)
 		{
-			//string currentFile=new System.Diagnostics.StackTrace(true).GetFrame(0).GetFileName(); 
-			//int currentLine = new System.Diagnostics.StackTrace(true).GetFrame(0).GetFileLineNumber();
-
 			return Profiler::QueryOrAcquireWatch(ConvertToString(name));
+		}
+
+		static void Start(System::String^ name)
+		{
+			int id = Profiler::QueryOrAcquireWatch(ConvertToString(name));
+
+			StopWatch* sw = Profiler::QueryWatch(id);
+			if(sw != NULL)
+				sw->Start();
+		}
+
+		static void Stop(System::String^ name)
+		{
+			int id = Profiler::QueryOrAcquireWatch(ConvertToString(name));
+
+			StopWatch* sw = Profiler::QueryWatch(id);
+			if(sw != NULL)
+				sw->Stop();
 		}
 	};
 
