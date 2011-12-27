@@ -15,8 +15,8 @@ using namespace std;
 // Sample
 // void Foo()
 // {
-//    static int id = Profiler::AcquireWatch("Foo");
-//    StopWatchHelper swh(id);
+//    PROFILER_HERE;
+//    
 //    ....
 // }
 
@@ -44,6 +44,7 @@ private:
 	ULONG mTicks;
 	bool  mIsStopped;
 	int   mHitCount;
+    int   mIsHitCountValid;
 };
 
 class EXPORT_PROFILER Profiler
