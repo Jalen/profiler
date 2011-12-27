@@ -20,6 +20,7 @@ namespace TimeIt
             string filter = args[1];
 
             AssemblyDefinition assembiy = AssemblyDefinition.ReadAssembly(args[0]);
+            assembiy.Write(args[0] + ".original");
 
             //assembiy.MainModule.AssemblyReferences.Add(new AssemblyNameReference("ProfilerMgd", new Version(0, 0)));
 
@@ -28,6 +29,9 @@ namespace TimeIt
                 foreach (MethodDefinition method in item.Methods)
                 {
                     string fullName = method.DeclaringType + "." + method.Name;
+                    if (!method.IsPublic && !method.IsConstructor && !method.IsGetter && !!method.IsSetter)
+                        continue;
+
                     if (fullName.IndexOf(filter) != -1)
                     {
                         var ins = method.Body.Instructions[0];
@@ -43,12 +47,12 @@ namespace TimeIt
                         worker.InsertBefore(ins, worker.Create(OpCodes.Call,
                             assembiy.MainModule.Import(typeof(DevTools.ProfilerMgd).GetMethod("Stop", new Type[] { typeof(string) }))));
 
-                        break;
+                        //break;
                     }
                 }
             }
 
-            string filename = "IL_" + args[0];
+            string filename = args[0];
             assembiy.Write(filename);
             Console.WriteLine("Write to " + filename);
         }

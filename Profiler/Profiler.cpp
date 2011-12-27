@@ -43,7 +43,7 @@ void Profiler::ReportResult(string title, string filePath)
 	outfile.open(filePath.c_str(), ios_base::app);
 	
 	outfile << endl << endl;
-	outfile << "<PerformanceCounters title =" << title << ">" << endl;
+	outfile << "<PerformanceCounters title =\'" << title << "\'>" << endl;
 
 	::OutputDebugStringA("\n------------------");
 	::OutputDebugStringA(title.c_str());
