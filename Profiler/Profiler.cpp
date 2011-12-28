@@ -153,7 +153,7 @@ void StopWatch::Report( fstream& out, bool bReset /*= false*/ )
 	out << "<PerformanceCounter>" << endl;
 	out << "	<Name>" << mReportName << "</Name>" << endl;
 	out << "	<Ticks>" << mTicks << "</Ticks>" << endl;
-	out << "	<HitCount>" << mIsHitCountValid ? mHitCount : -1 << "</HitCount>" << endl;
+	out << "	<HitCount>" << (mIsHitCountValid ? mHitCount : -1) << "</HitCount>" << endl;
 	if(!mFile.empty())
 	{
 		out << "	<File>" << mFile << "</File>" << endl;
