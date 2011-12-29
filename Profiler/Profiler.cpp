@@ -104,7 +104,7 @@ StopWatch::StopWatch( string reportName, string file, int line, bool start /*= t
 	mTicks = 0;
 	mHitCount = 0;
 	
-	mIsHitCountValid = true;
+	mIsTicksValid = true;
 	
 	if(start)
 		Start();
@@ -131,13 +131,13 @@ void StopWatch::Start()
 {
 	mHitCount ++;
 	
-	if(!mIsStopped)
+	if(mIsStopped)
 	{
 		mStartTick = ::GetTickCount();
 		mIsStopped = false;
 	}
 	else
-		mIsHitCountValid = false;
+		mIsTicksValid = false;
 }
 
 void StopWatch::Report( fstream& out, bool bReset /*= false*/ )
@@ -152,8 +152,8 @@ void StopWatch::Report( fstream& out, bool bReset /*= false*/ )
 
 	out << "<PerformanceCounter>" << endl;
 	out << "	<Name>" << mReportName << "</Name>" << endl;
-	out << "	<Ticks>" << mTicks << "</Ticks>" << endl;
-	out << "	<HitCount>" << (mIsHitCountValid ? mHitCount : -1) << "</HitCount>" << endl;
+	out << "	<Ticks>" << (mIsTicksValid ? mTicks : -1)  << "</Ticks>" << endl;
+	out << "	<HitCount>" << mHitCount << "</HitCount>" << endl;
 	if(!mFile.empty())
 	{
 		out << "	<File>" << mFile << "</File>" << endl;
