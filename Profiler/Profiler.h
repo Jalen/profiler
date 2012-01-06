@@ -8,11 +8,11 @@ using namespace std;
 #define EXPORT_PROFILER __declspec(dllexport) 
 #else
 #define EXPORT_PROFILER __declspec(dllimport)
-#ifdef DEBUG
-#pragma comment(lib,"../Debug/Profiler.lib")
-#else
-#pragma comment(lib,"../Release/Profiler.lib")
-#endif
+//#ifdef DEBUG
+//#pragma comment(lib,"../Debug/Profiler.lib")
+//#else
+//#pragma comment(lib,"../Release/Profiler.lib")
+//#endif
 #endif
 
 

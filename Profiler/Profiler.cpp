@@ -121,11 +121,13 @@ void StopWatch::Stop()
 		return;
 
 	DWORD endTick = ::GetTickCount();
-	DWORD eclipsed = endTick - mStartTick;
+	int eclipsed = endTick - mStartTick;
 
+#if DEBUG
 	char sValue[512];
 	sprintf_s(sValue, 512, "%s: %d", mReportName.c_str(),  eclipsed);
 	::OutputDebugStringA(sValue);
+#endif
 
 	mTicks += (endTick - mStartTick);
 
@@ -136,13 +138,10 @@ void StopWatch::Start()
 {
 	mHitCount ++;
 	
-	if(mIsStopped)
-	{
-		mStartTick = ::GetTickCount();
-		mIsStopped = false;
-	}
-	else
+	if(!mIsStopped)
 		mIsTicksValid = false;
+	mStartTick = ::GetTickCount();
+	mIsStopped = false;
 }
 
 void StopWatch::Report( fstream& out, bool bReset /*= false*/ )
@@ -159,7 +158,7 @@ void StopWatch::Report( fstream& out, bool bReset /*= false*/ )
 	out << "	<Name>" << mReportName << "</Name>" << endl;
 	out << "	<Ticks>" << mTicks << "</Ticks>" << endl;
 	if(!mIsTicksValid)
-		out << "     <TicksIsInvalid></TicksIsInvalid>" << endl;
+		out << "    <TicksIsInvalid/>" << endl;
 	out << "	<HitCount>" << mHitCount << "</HitCount>" << endl;
 	if(!mFile.empty())
 	{
