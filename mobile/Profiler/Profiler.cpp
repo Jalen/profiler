@@ -16,8 +16,9 @@ using namespace std;
 #define  LOGI(...)  __android_log_print(ANDROID_LOG_INFO,LOG_TAG,__VA_ARGS__)
 #define  LOGE(...)  __android_log_print(ANDROID_LOG_ERROR,LOG_TAG,__VA_ARGS__)
 #else
-#define  LOGI(...)
-#define  LOGE(...)
+#include <sys/time.h>
+#define  LOGI(...) printf(__VA_ARGS__)
+#define  LOGE(...) printf(__VA_ARGS__)
 #endif
 
 namespace
@@ -153,6 +154,8 @@ void StopWatch::Stop()
 	double eclipsed = endTick - mStartTick;
 
 	mTicks += (eclipsed);
+    
+    LOGI("%s: %f Hit Count: %d\n", mReportName.c_str(),  eclipsed, mHitCount);
 
 	mIsStopped = true;
 }
