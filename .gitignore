@@ -13,3 +13,4 @@ Release
 *.docstates
 *.cache
 
+.DS_Store
